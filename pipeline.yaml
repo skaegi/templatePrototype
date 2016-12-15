@@ -1,0 +1,72 @@
+---
+stages:
+- name: Build Web App
+  inputs:
+  - url: https://github.com/sreya92/simplewebapp.git
+    type: git
+    branch: master
+    dir_name: null
+  jobs:
+  - name: Build
+    type: builder
+    working_dir: simplewebapp
+    artifact_dir: target
+    build_type: maven
+    script: |-
+      #!/bin/bash
+      mvn install
+- name: Deploy To Staging
+  inputs:
+  - type: job
+    stage: Build Web App
+    job: Build
+    dir_name: null
+  triggers:
+  - type: stage
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      region_id: ibm:ys1:us-south
+      organization: jaayers@us.ibm.com
+      space: dev
+      application: jaayersWebApp
+    script: |
+      #!/bin/bash
+      cd simplewebapp
+      cf push "${CF_APP}"
+- name: Test In Staging
+  triggers:
+  - type: stage
+  jobs:
+  - name: Test
+    type: tester
+    script: "#!/bin/bash\n# invoke tests here\nresult=$(curl -s -k -o /dev/null -w\
+      \ \"%{http_code}\" https://jaayerswebapp.stage1.mybluemix.net/ )\nif [ $result\
+      \ -eq 200 ] ; then\n        echo \"Test passed.\"\n\texit 0\t\nelse\n      \
+      \  echo \"Test failed.\"\n\texit 1\nfi\n\n"
+- name: Deploy To Production
+  inputs:
+  - type: job
+    stage: Build Web App
+    job: Build
+    dir_name: null
+  triggers:
+  - type: stage
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      region_id: ibm:yp:us-south
+      organization: jaayers@us.ibm.com
+      space: dev
+      application: jaayersWebApp
+    script: |
+      #!/bin/bash
+      cd simplewebapp
+      cf push -m 256M "${CF_APP}"
+hooks:
+- enabled: true
+  label: null
+  ssl_enabled: false
+  url: https://devops-api-integration.stage1.ng.bluemix.net/v1/messaging/webhook/publish
