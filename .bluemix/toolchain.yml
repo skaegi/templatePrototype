@@ -25,7 +25,7 @@ sample-build:
   service_id: pipeline
   parameters:
     name: "{{name}}"
-    ui-pipeline: true
+    ui-pipeline: false
     configuration: 
      content: $file(pipeline.yml)
      #env:
@@ -36,4 +36,4 @@ sample-build:
      # PROD_REGION_ID: "{{deploy.parameters.prod-region}}"
      execute: true
     services: ["sample-repo"]
-  hidden: [form, description]
+     #hidden: [form, description]
