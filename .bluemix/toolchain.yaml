@@ -8,7 +8,7 @@ version: 0.1
 image: data:image/svg+xml;base64,$file(toolchain.svg,base64)
 icon: data:image/svg+xml;base64,$file(icon.svg,base64)
 required: 
- - deploy
+ - sample-build 
  - sample-repo
 
 # Github repos
@@ -25,7 +25,7 @@ sample-build:
   service_id: pipeline
   parameters:
     name: "{{name}}"
-    ui-pipeline: tru https://github.com/sreya92/templatePrototype
+    ui-pipeline: true
     configuration: 
      content: $file(pipeline.yml)
      env:
