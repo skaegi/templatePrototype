@@ -1,0 +1,7 @@
+---
+en-AA:
+  $ref: ./nls/messages_en_AA.yml
+en-RR:
+  $ref: ./nls/messages_en_RR.yml
+en-ZZ:
+  $ref: ./nls/messages_en_ZZ.yml

@@ -1,4 +1,7 @@
 ---
+default_locale: en
+locales: 
+      $ref: locales.yml
 name: "Prototype toolchain "
 description: "Prototype toolchain"
 version: 0.1
