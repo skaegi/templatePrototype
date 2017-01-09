@@ -64,8 +64,4 @@ stages:
       #!/bin/bash
       cd simplewebapp
       cf push -m 256M "${CF_APP}"
-hooks:
-- enabled: true
-  label: null
-  ssl_enabled: false
-  url: https://devops-api-integration.stage1.ng.bluemix.net/v1/messaging/webhook/publish
+
