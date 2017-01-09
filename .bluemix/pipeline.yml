@@ -2,11 +2,9 @@
 stages:
 - name: Build Web App
   inputs:
-  - url: https://github.com/sreya92/simplewebapp.git
-    type: git
+  - type: git
     branch: master
     service: ${PROTOTYPE}
-    dir_name: null
   jobs:
   - name: Build
     type: builder
