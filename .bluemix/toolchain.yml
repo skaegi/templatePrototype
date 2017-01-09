@@ -29,11 +29,11 @@ sample-build:
     configuration: 
      content: $file(pipeline.yml)
      env:
-      PROTOTYPE: "prototype"
+      PROTOTYPE: "sample-repo"
       CF_APP_NAME: "{{deploy.parameters.prod-app-name}}"
       PROD_SPACE_NAME: "{{deploy.parameters.prod-space}}"
       PROD_ORG_NAME: "{{deploy.parameters.prod-organization}}"
       PROD_REGION_ID: "{{deploy.parameters.prod-region}}"
      execute: true
-    services: ["prototype"]
+    services: ["sample-repo"]
     hidden: [form, description]
