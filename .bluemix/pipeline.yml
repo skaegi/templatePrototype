@@ -5,6 +5,7 @@ stages:
   - url: https://github.com/sreya92/simplewebapp.git
     type: git
     branch: master
+    service: ${PROTOTYPE}
     dir_name: null
   jobs:
   - name: Build
